@@ -20,6 +20,7 @@ export const eventBus = new Vue({
   },
   methods: {
     addProductToCart(product) {
+      console.log(product);
       if (!this.cart.map( i => i.id).includes(product.id)) {
         this.cart = [ ...this.cart, product ];
         this.$emit('update:cart', this.cart.slice());
@@ -30,6 +31,7 @@ export const eventBus = new Vue({
       this.$emit('update:cart', this.cart.slice());
     },
     addProduct(product) {
+      product = { ...product, id: this.products.length + 1 + ''};
       this.$http.post('products.json', product)
                 .then( res => {
                   this.products = [ ...this.products, { ...product, id: this.products.length + 1 + '' }],
